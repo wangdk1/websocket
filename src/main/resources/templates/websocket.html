@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>websocket</title>
+    <script src="../static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="http://cdn.bootcss.com/sockjs-client/1.1.1/sockjs.js"></script>
+    <script>
+        var url1="ws://localhost:8080/"
+        var url2="http://localhost:8080/"
+        var websocket = null;
+        if ('WebSocket' in window) {
+            websocket = new WebSocket(url1+"websocket/socketServer.do");
+        }
+        else if ('MozWebSocket' in window) {
+            websocket = new MozWebSocket(url1+"websocket/socketServer.do");
+        }
+        else {
+            websocket = new SockJS(url2+"sockjs/socketServer.do");
+        }
+        websocket.onopen = onOpen;
+        websocket.onmessage = onMessage;
+        websocket.onerror = onError;
+        websocket.onclose = onClose;
+
+        function onOpen(openEvt) {
+
+        }
+
+        function onMessage(evt) {
+            alert("alert    "+evt.data);
+        }
+        function onError() {}
+        function onClose() {}
+
+        function doSend() {
+            if (websocket.readyState == websocket.OPEN) {
+                var msg = document.getElementById("inputMsg").value;
+                websocket.send(msg);//调用后台handleTextMessage方法
+
+            } else {
+                alert("连接失败!");
+            }
+        }
+
+        window.close=function()
+        {
+            websocket.onclose();
+        }
+    </script>
+</head>
+<body>
+<div class="container container-sm" style="margin:0 auto">
+    请输入：<textarea rows="5" cols="10" id="inputMsg" name="inputMsg"></textarea>
+    <button onclick="doSend();">发送</button>
+</div>
+</body>
+</html>
