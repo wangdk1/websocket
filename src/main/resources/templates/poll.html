@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>websocket</title>
+    <script src="../static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="http://cdn.bootcss.com/sockjs-client/1.1.1/sockjs.js"></script>
+    <script>
+        /*(function () {
+            $.ajax({
+                url: 'sub1',
+                type: 'POST',
+                dataType: 'text',
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function () {
+                    console.log("error");
+                }
+            });
+        })()*/
+
+        function submit() {
+            $.ajax({
+                url: 'sub',
+                type: 'POST',
+                timeout:30000,
+                dataType: 'text',
+                success: function (result) {
+                    window.clearInterval(t);
+                    $("#test").val(100);
+                    console.log(result);
+                    $("#result").val(result);
+                },
+                error: function () {
+                    console.log("error");
+                }
+            });
+            //循环查看状态
+            var t = setInterval(function () {
+                $.ajax({
+                    url: 'poll',
+                    type: 'POST',
+                    async:true,
+                    dataType: 'json',
+                    success: function (result) {
+                        var progress = result.progress;
+                        //前台更新进度
+                        $("#test").val(progress);
+
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                });
+            }, 500);
+
+
+        }
+
+
+    </script>
+</head>
+<body>
+
+<button onclick="submit()" style="width: 60px;height: 20px;" value="提交">提交</button>
+<!--<button onclick="submit2()" style="width: 60px;height: 20px;" value="提交">提交2</button>-->
+<div>进度：<input id="test" value="0"/>
+
+<!--</div><div>进度2：<input id="test2" value="0%"/></div>-->
+<div>结果：<input id="result" /></div>
+
+</body>
+</html>

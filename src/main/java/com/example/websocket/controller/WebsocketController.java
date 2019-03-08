@@ -26,7 +26,7 @@ public class WebsocketController {
     public String login(String username, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         session.setAttribute("WEBSOCKET_USERNAME",username);
-        return "websocket";
+        return "poll";
     }
     /**
      * websocket
