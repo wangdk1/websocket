@@ -23,6 +23,7 @@ public class PollingController {
      */
     @RequestMapping("/index")
     public String index() {
+//        redisTemplate.
         return "login";
     }
     @RequestMapping("/login")
