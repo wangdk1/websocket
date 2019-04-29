@@ -44,7 +44,7 @@ public class FindRoute {
             add(sbu2_1);
             add(sbu2_2);
         }};
-        sbu1_1.children = new ArrayList<Tree>() {{
+        sbu2_2.children = new ArrayList<Tree>() {{
             add(sbu1_1_1);
         }};
 
@@ -64,12 +64,21 @@ public class FindRoute {
         rootList.add(root2);
         String name = "sbu1_1_1";
         List<String> route = new ArrayList<>();
-        findRoute(name, route, rootList);
+//        findRoute(name, route, rootList);
+        findRouteAfter(name, route, rootList);
         route.forEach(item -> System.out.println(item));
 
 
     }
 
+    /**
+     * 先序遍历
+     *
+     * @param name
+     * @param route
+     * @param rootList
+     * @return
+     */
     public static boolean findRoute(String name, List<String> route, List<Tree> rootList) {
         boolean flag = false;
         for (Tree item : rootList) {
@@ -90,6 +99,35 @@ public class FindRoute {
         }
         return flag;
     }
+    /**
+     * 后序遍历
+     *
+     * @param name
+     * @param route
+     * @param rootList
+     * @return
+     */
+    public static boolean findRouteAfter(String name, List<String> route, List<Tree> rootList) {
+        boolean flag = false;
+        for (Tree item : rootList) {
+            if (item.name.equals(name)) {
+                flag = true;
+                route.add(item.name);
+                return flag;
+            }
+        }
+        for (Tree item : rootList) {
+            if (item.children.size() > 0) {
+                flag = findRouteAfter(name, route, item.children);
+                route.add(item.name);
+                if (!flag)
+                    route.remove(item.name);
+                else return flag;
+            }
+        }
+        return flag;
+    }
+
 }
 
 class Tree {
