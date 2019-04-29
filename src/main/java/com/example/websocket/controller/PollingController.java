@@ -79,4 +79,18 @@ public class PollingController {
         String id = session.getId();
         return id;
     }
+
+
+    public static void main(String[] args) {
+        /*BigDecimal n = new BigDecimal(10.7);
+        System.out.println(n.setScale(0, BigDecimal.ROUND_DOWN).intValue());*/
+        int a=9,b=16;
+        int c = (a+b)/2;
+        int c1 = a+(b-a)/2;
+        int c2 = b - (b-a)/2;
+        System.out.println(c);
+        System.out.println(c1);
+        System.out.println(c2);
+
+    }
 }
