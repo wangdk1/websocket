@@ -44,7 +44,7 @@ public class FindRoute {
             add(sbu2_1);
             add(sbu2_2);
         }};
-        sbu2_2.children = new ArrayList<Tree>() {{
+        sbu1_2.children = new ArrayList<Tree>() {{
             add(sbu1_1_1);
         }};
 
@@ -119,10 +119,17 @@ public class FindRoute {
         for (Tree item : rootList) {
             if (item.children.size() > 0) {
                 flag = findRouteAfter(name, route, item.children);
+               //优化 去除不必要的添加操作
+                if (flag)route.add(item.name);
+                return flag;
+
+                /*   包含不必要的添加操作
                 route.add(item.name);
                 if (!flag)
                     route.remove(item.name);
                 else return flag;
+                */
+
             }
         }
         return flag;
