@@ -13,7 +13,7 @@ spring:
     database: 0
     port: 6379
     host: bdcRedis.gisyc.com
-    timeout: PT3000s  #连接超时时间（毫秒）
+    timeout: PT30s  #连接超时时间（毫秒）
     jedis.pool:
        # 连接池中的最大空闲连接
        max-idle:  3000
